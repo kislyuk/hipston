@@ -1,0 +1,21 @@
+language: python
+cache: pip
+
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+  - 3.5
+
+install:
+  - pip install coverage flake8 wheel
+  - python setup.py bdist_wheel
+  - pip install dist/*.whl
+
+script:
+  - coverage run --source=signxml ./test/test.py
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+sudo: false
